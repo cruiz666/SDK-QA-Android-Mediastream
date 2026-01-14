@@ -1,0 +1,82 @@
+package com.example.sdkqa
+
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.sdkqa.audio.AudioAodSimpleActivity
+import com.example.sdkqa.audio.AudioAodWithServiceActivity
+import com.example.sdkqa.audio.AudioLiveActivity
+import com.example.sdkqa.audio.AudioLiveDvrActivity
+import com.example.sdkqa.audio.AudioLiveWithServiceActivity
+import com.example.sdkqa.video.VideoVodSimpleActivity
+
+class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "SDK-QA"
+    }
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: TestCaseAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerTestCases)
+
+        val testCases = TestCase.getAllTestCases()
+
+        adapter = TestCaseAdapter(testCases) { testCase ->
+            onTestCaseClicked(testCase)
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+    }
+
+    private fun onTestCaseClicked(testCase: TestCase) {
+        Log.d(TAG, "Selected test case: ${testCase.getDisplayTitle()} (${testCase.type})")
+
+        // TODO: Launch corresponding activity based on test case type
+        when (testCase.type) {
+            TestCase.TestCaseType.AUDIO_AOD_SIMPLE -> {
+                Log.d(TAG, "Launching Audio AOD Simple test...")
+                startActivity(Intent(this, AudioAodSimpleActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_AOD_WITH_SERVICE -> {
+                Log.d(TAG, "Launching Audio AOD with Service test...")
+                startActivity(Intent(this, AudioAodWithServiceActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_LIVE -> {
+                Log.d(TAG, "Launching Audio Live test...")
+                startActivity(Intent(this, AudioLiveActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_LIVE_WITH_SERVICE -> {
+                Log.d(TAG, "Launching Audio Live with Service test...")
+                startActivity(Intent(this, AudioLiveWithServiceActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_LIVE_DVR -> {
+                Log.d(TAG, "Launching Audio Live DVR test...")
+                startActivity(Intent(this, AudioLiveDvrActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_VOD_SIMPLE -> {
+                Log.d(TAG, "Launching Video VOD Simple test...")
+                startActivity(Intent(this, VideoVodSimpleActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_LIVE -> {
+                Log.d(TAG, "Launching Video Live test...")
+            }
+            TestCase.TestCaseType.VIDEO_LIVE_DVR -> {
+                Log.d(TAG, "Launching Video Live DVR test...")
+            }
+        }
+    }
+}
