@@ -14,11 +14,15 @@ import com.example.sdkqa.audio.AudioLocalActivity
 import com.example.sdkqa.audio.AudioLocalWithServiceActivity
 import com.example.sdkqa.audio.AudioLiveDvrActivity
 import com.example.sdkqa.audio.AudioLiveWithServiceActivity
+import com.example.sdkqa.audio.AudioMixedActivity
+import com.example.sdkqa.audio.AudioMixedWithServiceActivity
 import com.example.sdkqa.video.VideoEpisodeActivity
 import com.example.sdkqa.video.VideoLiveActivity
 import com.example.sdkqa.video.VideoLiveDvrActivity
 import com.example.sdkqa.video.VideoLocalActivity
 import com.example.sdkqa.video.VideoLocalWithServiceActivity
+import com.example.sdkqa.video.VideoMixedActivity
+import com.example.sdkqa.video.VideoMixedWithServiceActivity
 import com.example.sdkqa.video.VideoVodSimpleActivity
 
 class MainActivity : AppCompatActivity() {
@@ -87,6 +91,14 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Launching Audio Live DVR test...")
                 startActivity(Intent(this, AudioLiveDvrActivity::class.java))
             }
+            TestCase.TestCaseType.AUDIO_MIXED -> {
+                Log.d(TAG, "Launching Audio Mixed test...")
+                startActivity(Intent(this, AudioMixedActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_MIXED_WITH_SERVICE -> {
+                Log.d(TAG, "Launching Audio Mixed with Service test...")
+                startActivity(Intent(this, AudioMixedWithServiceActivity::class.java))
+            }
             TestCase.TestCaseType.VIDEO_VOD_SIMPLE -> {
                 Log.d(TAG, "Launching Video VOD Simple test...")
                 startActivity(Intent(this, VideoVodSimpleActivity::class.java))
@@ -110,6 +122,14 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_LIVE_DVR -> {
                 Log.d(TAG, "Launching Video Live DVR test...")
                 startActivity(Intent(this, VideoLiveDvrActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_MIXED -> {
+                Log.d(TAG, "Launching Video Mixed test...")
+                startActivity(Intent(this, VideoMixedActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_MIXED_WITH_SERVICE -> {
+                Log.d(TAG, "Launching Video Mixed with Service test...")
+                startActivity(Intent(this, VideoMixedWithServiceActivity::class.java))
             }
         }
     }

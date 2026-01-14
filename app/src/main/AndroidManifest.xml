@@ -123,6 +123,21 @@
             android:theme="@style/Theme.SDKQA" />
 
         <activity
+            android:name=".audio.AudioMixedActivity"
+            android:exported="false"
+            android:label="Audio Mixed"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".audio.AudioMixedWithServiceActivity"
+            android:exported="false"
+            android:label="Audio Mixed with Service"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
             android:name=".video.VideoLiveActivity"
             android:exported="false"
             android:label="Video Live"
@@ -134,6 +149,21 @@
             android:exported="false"
             android:label="Video Live DVR"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".video.VideoMixedActivity"
+            android:exported="false"
+            android:label="Video Mixed"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".video.VideoMixedWithServiceActivity"
+            android:exported="false"
+            android:label="Video Mixed with Service"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.SDKQA" />
 
         <service

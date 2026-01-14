@@ -8,7 +8,7 @@ Esta aplicación proporciona una suite de pruebas para verificar las diferentes 
 
 ## 🎯 Casos de Prueba
 
-### Audio
+### Audio (10 casos)
 | Caso | Descripción |
 |------|-------------|
 | **AOD Simple** | Audio On Demand básico sin servicio de background |
@@ -19,8 +19,10 @@ Esta aplicación proporciona una suite de pruebas para verificar las diferentes 
 | **Live Audio** | Streaming de audio en vivo |
 | **Live Audio with Service** | Streaming de audio en vivo con servicio de background |
 | **Live Audio DVR** | Audio en vivo con soporte DVR (Live, DVR, DVR Start, DVR VOD) |
+| **Mixed Audio** | Selector dinámico entre Local, AOD, Episode y Live sin servicio |
+| **Mixed Audio with Service** | Selector dinámico entre Local, AOD, Episode y Live con servicio |
 
-### Video
+### Video (8 casos)
 | Caso | Descripción |
 |------|-------------|
 | **VOD Simple** | Video On Demand básico |
@@ -29,6 +31,8 @@ Esta aplicación proporciona una suite de pruebas para verificar las diferentes 
 | **Episode** | Reproducción de episodios de video con carga automática del siguiente |
 | **Live Video** | Streaming de video en vivo |
 | **Live Video DVR** | Video en vivo con soporte DVR (Live, DVR, DVR Start, DVR VOD) |
+| **Mixed Video** | Selector dinámico entre Local, VOD, Live y Episode sin servicio |
+| **Mixed Video with Service** | Selector dinámico entre Local, VOD, Live y Episode con servicio |
 
 ## 🛠 Requisitos
 
@@ -74,14 +78,18 @@ app/src/main/java/com/example/sdkqa/
 │   ├── AudioLocalWithServiceActivity.kt
 │   ├── AudioLiveActivity.kt
 │   ├── AudioLiveWithServiceActivity.kt
-│   └── AudioLiveDvrActivity.kt
+│   ├── AudioLiveDvrActivity.kt
+│   ├── AudioMixedActivity.kt
+│   └── AudioMixedWithServiceActivity.kt
 └── video/
     ├── VideoVodSimpleActivity.kt
     ├── VideoLocalActivity.kt
     ├── VideoLocalWithServiceActivity.kt
     ├── VideoEpisodeActivity.kt
     ├── VideoLiveActivity.kt
-    └── VideoLiveDvrActivity.kt
+    ├── VideoLiveDvrActivity.kt
+    ├── VideoMixedActivity.kt
+    └── VideoMixedWithServiceActivity.kt
 
 app/src/main/res/raw/
 ├── sample_audio             # Archivo de audio local para pruebas

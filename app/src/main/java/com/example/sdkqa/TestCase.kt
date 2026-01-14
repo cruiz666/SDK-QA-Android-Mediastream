@@ -23,12 +23,16 @@ data class TestCase(
         AUDIO_LIVE,
         AUDIO_LIVE_WITH_SERVICE,
         AUDIO_LIVE_DVR,
+        AUDIO_MIXED,
+        AUDIO_MIXED_WITH_SERVICE,
         VIDEO_VOD_SIMPLE,
         VIDEO_LOCAL,
         VIDEO_LOCAL_WITH_SERVICE,
         VIDEO_EPISODE,
         VIDEO_LIVE,
-        VIDEO_LIVE_DVR
+        VIDEO_LIVE_DVR,
+        VIDEO_MIXED,
+        VIDEO_MIXED_WITH_SERVICE
     }
 
     companion object {
@@ -46,13 +50,17 @@ data class TestCase(
             TestCase(TestCaseType.AUDIO_LIVE, "Live Audio", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_LIVE_WITH_SERVICE, "Live Audio with Service", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_LIVE_DVR, "Live Audio DVR", Category.AUDIO),
+            TestCase(TestCaseType.AUDIO_MIXED, "Mixed Audio", Category.AUDIO),
+            TestCase(TestCaseType.AUDIO_MIXED_WITH_SERVICE, "Mixed Audio with Service", Category.AUDIO),
             // Video Test Cases
             TestCase(TestCaseType.VIDEO_VOD_SIMPLE, "VOD Simple", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LOCAL, "Local Video", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LOCAL_WITH_SERVICE, "Local Video with Service", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_EPISODE, "Episode", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LIVE, "Live Video", Category.VIDEO),
-            TestCase(TestCaseType.VIDEO_LIVE_DVR, "Live Video DVR", Category.VIDEO)
+            TestCase(TestCaseType.VIDEO_LIVE_DVR, "Live Video DVR", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_MIXED, "Mixed Video", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_MIXED_WITH_SERVICE, "Mixed Video with Service", Category.VIDEO)
         )
     }
 
