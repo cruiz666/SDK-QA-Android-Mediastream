@@ -13,6 +13,9 @@ Esta aplicación proporciona una suite de pruebas para verificar las diferentes 
 |------|-------------|
 | **AOD Simple** | Audio On Demand básico sin servicio de background |
 | **AOD with Service** | Audio On Demand con servicio para reproducción en background |
+| **Episode** | Reproducción de episodios de audio con carga automática del siguiente |
+| **Local Audio** | Reproducción de archivo de audio local sin servicio |
+| **Local Audio with Service** | Reproducción de archivo de audio local con servicio de background |
 | **Live Audio** | Streaming de audio en vivo |
 | **Live Audio with Service** | Streaming de audio en vivo con servicio de background |
 | **Live Audio DVR** | Audio en vivo con soporte DVR (Live, DVR, DVR Start, DVR VOD) |
@@ -21,6 +24,9 @@ Esta aplicación proporciona una suite de pruebas para verificar las diferentes 
 | Caso | Descripción |
 |------|-------------|
 | **VOD Simple** | Video On Demand básico |
+| **Local Video** | Reproducción de archivo de video local sin servicio |
+| **Local Video with Service** | Reproducción de archivo de video local con servicio de background |
+| **Episode** | Reproducción de episodios de video con carga automática del siguiente |
 | **Live Video** | Streaming de video en vivo |
 | **Live Video DVR** | Video en vivo con soporte DVR (Live, DVR, DVR Start, DVR VOD) |
 
@@ -63,13 +69,23 @@ app/src/main/java/com/example/sdkqa/
 ├── audio/
 │   ├── AudioAodSimpleActivity.kt
 │   ├── AudioAodWithServiceActivity.kt
+│   ├── AudioEpisodeActivity.kt
+│   ├── AudioLocalActivity.kt
+│   ├── AudioLocalWithServiceActivity.kt
 │   ├── AudioLiveActivity.kt
 │   ├── AudioLiveWithServiceActivity.kt
 │   └── AudioLiveDvrActivity.kt
 └── video/
     ├── VideoVodSimpleActivity.kt
+    ├── VideoLocalActivity.kt
+    ├── VideoLocalWithServiceActivity.kt
+    ├── VideoEpisodeActivity.kt
     ├── VideoLiveActivity.kt
     └── VideoLiveDvrActivity.kt
+
+app/src/main/res/raw/
+├── sample_audio             # Archivo de audio local para pruebas
+└── sample_video             # Archivo de video local para pruebas
 ```
 
 ## 🔧 Configuración

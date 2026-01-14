@@ -39,6 +39,29 @@
             android:theme="@style/Theme.SDKQA" />
 
         <activity
+            android:name=".video.VideoLocalActivity"
+            android:exported="false"
+            android:label="Video Local"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".video.VideoLocalWithServiceActivity"
+            android:exported="false"
+            android:label="Video Local with Service"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".video.VideoEpisodeActivity"
+            android:exported="false"
+            android:label="Video Episode"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
             android:name=".audio.AudioAodSimpleActivity"
             android:exported="false"
             android:label="Audio AOD Simple"
@@ -49,6 +72,29 @@
             android:name=".audio.AudioAodWithServiceActivity"
             android:exported="false"
             android:label="Audio AOD with Service"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".audio.AudioEpisodeActivity"
+            android:exported="false"
+            android:label="Audio Episode"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".audio.AudioLocalActivity"
+            android:exported="false"
+            android:label="Audio Local"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
+            android:name=".audio.AudioLocalWithServiceActivity"
+            android:exported="false"
+            android:label="Audio Local with Service"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTop"
             android:theme="@style/Theme.SDKQA" />

@@ -17,10 +17,16 @@ data class TestCase(
     enum class TestCaseType {
         AUDIO_AOD_SIMPLE,
         AUDIO_AOD_WITH_SERVICE,
+        AUDIO_EPISODE,
+        AUDIO_LOCAL,
+        AUDIO_LOCAL_WITH_SERVICE,
         AUDIO_LIVE,
         AUDIO_LIVE_WITH_SERVICE,
         AUDIO_LIVE_DVR,
         VIDEO_VOD_SIMPLE,
+        VIDEO_LOCAL,
+        VIDEO_LOCAL_WITH_SERVICE,
+        VIDEO_EPISODE,
         VIDEO_LIVE,
         VIDEO_LIVE_DVR
     }
@@ -34,11 +40,17 @@ data class TestCase(
             // Audio Test Cases
             TestCase(TestCaseType.AUDIO_AOD_SIMPLE, "AOD Simple", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_AOD_WITH_SERVICE, "AOD with Service", Category.AUDIO),
+            TestCase(TestCaseType.AUDIO_EPISODE, "Episode", Category.AUDIO),
+            TestCase(TestCaseType.AUDIO_LOCAL, "Local Audio", Category.AUDIO),
+            TestCase(TestCaseType.AUDIO_LOCAL_WITH_SERVICE, "Local Audio with Service", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_LIVE, "Live Audio", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_LIVE_WITH_SERVICE, "Live Audio with Service", Category.AUDIO),
             TestCase(TestCaseType.AUDIO_LIVE_DVR, "Live Audio DVR", Category.AUDIO),
             // Video Test Cases
             TestCase(TestCaseType.VIDEO_VOD_SIMPLE, "VOD Simple", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_LOCAL, "Local Video", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_LOCAL_WITH_SERVICE, "Local Video with Service", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_EPISODE, "Episode", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LIVE, "Live Video", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LIVE_DVR, "Live Video DVR", Category.VIDEO)
         )

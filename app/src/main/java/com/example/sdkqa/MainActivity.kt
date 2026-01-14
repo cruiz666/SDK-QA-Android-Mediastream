@@ -8,11 +8,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sdkqa.audio.AudioAodSimpleActivity
 import com.example.sdkqa.audio.AudioAodWithServiceActivity
+import com.example.sdkqa.audio.AudioEpisodeActivity
 import com.example.sdkqa.audio.AudioLiveActivity
+import com.example.sdkqa.audio.AudioLocalActivity
+import com.example.sdkqa.audio.AudioLocalWithServiceActivity
 import com.example.sdkqa.audio.AudioLiveDvrActivity
 import com.example.sdkqa.audio.AudioLiveWithServiceActivity
+import com.example.sdkqa.video.VideoEpisodeActivity
 import com.example.sdkqa.video.VideoLiveActivity
 import com.example.sdkqa.video.VideoLiveDvrActivity
+import com.example.sdkqa.video.VideoLocalActivity
+import com.example.sdkqa.video.VideoLocalWithServiceActivity
 import com.example.sdkqa.video.VideoVodSimpleActivity
 
 class MainActivity : AppCompatActivity() {
@@ -57,6 +63,18 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Launching Audio AOD with Service test...")
                 startActivity(Intent(this, AudioAodWithServiceActivity::class.java))
             }
+            TestCase.TestCaseType.AUDIO_EPISODE -> {
+                Log.d(TAG, "Launching Audio Episode test...")
+                startActivity(Intent(this, AudioEpisodeActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_LOCAL -> {
+                Log.d(TAG, "Launching Audio Local test...")
+                startActivity(Intent(this, AudioLocalActivity::class.java))
+            }
+            TestCase.TestCaseType.AUDIO_LOCAL_WITH_SERVICE -> {
+                Log.d(TAG, "Launching Audio Local with Service test...")
+                startActivity(Intent(this, AudioLocalWithServiceActivity::class.java))
+            }
             TestCase.TestCaseType.AUDIO_LIVE -> {
                 Log.d(TAG, "Launching Audio Live test...")
                 startActivity(Intent(this, AudioLiveActivity::class.java))
@@ -72,6 +90,18 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_VOD_SIMPLE -> {
                 Log.d(TAG, "Launching Video VOD Simple test...")
                 startActivity(Intent(this, VideoVodSimpleActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_LOCAL -> {
+                Log.d(TAG, "Launching Video Local test...")
+                startActivity(Intent(this, VideoLocalActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_LOCAL_WITH_SERVICE -> {
+                Log.d(TAG, "Launching Video Local with Service test...")
+                startActivity(Intent(this, VideoLocalWithServiceActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_EPISODE -> {
+                Log.d(TAG, "Launching Video Episode test...")
+                startActivity(Intent(this, VideoEpisodeActivity::class.java))
             }
             TestCase.TestCaseType.VIDEO_LIVE -> {
                 Log.d(TAG, "Launching Video Live test...")
