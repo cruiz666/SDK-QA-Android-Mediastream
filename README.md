@@ -22,7 +22,7 @@ Esta aplicación proporciona una suite de pruebas para verificar las diferentes 
 |------|-------------|
 | **VOD Simple** | Video On Demand básico |
 | **Live Video** | Streaming de video en vivo |
-| **Live Video DVR** | Video en vivo con soporte DVR |
+| **Live Video DVR** | Video en vivo con soporte DVR (Live, DVR, DVR Start, DVR VOD) |
 
 ## 🛠 Requisitos
 
@@ -67,7 +67,9 @@ app/src/main/java/com/example/sdkqa/
 │   ├── AudioLiveWithServiceActivity.kt
 │   └── AudioLiveDvrActivity.kt
 └── video/
-    └── VideoVodSimpleActivity.kt
+    ├── VideoVodSimpleActivity.kt
+    ├── VideoLiveActivity.kt
+    └── VideoLiveDvrActivity.kt
 ```
 
 ## 🔧 Configuración

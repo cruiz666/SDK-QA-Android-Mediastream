@@ -11,6 +11,8 @@ import com.example.sdkqa.audio.AudioAodWithServiceActivity
 import com.example.sdkqa.audio.AudioLiveActivity
 import com.example.sdkqa.audio.AudioLiveDvrActivity
 import com.example.sdkqa.audio.AudioLiveWithServiceActivity
+import com.example.sdkqa.video.VideoLiveActivity
+import com.example.sdkqa.video.VideoLiveDvrActivity
 import com.example.sdkqa.video.VideoVodSimpleActivity
 
 class MainActivity : AppCompatActivity() {
@@ -73,9 +75,11 @@ class MainActivity : AppCompatActivity() {
             }
             TestCase.TestCaseType.VIDEO_LIVE -> {
                 Log.d(TAG, "Launching Video Live test...")
+                startActivity(Intent(this, VideoLiveActivity::class.java))
             }
             TestCase.TestCaseType.VIDEO_LIVE_DVR -> {
                 Log.d(TAG, "Launching Video Live DVR test...")
+                startActivity(Intent(this, VideoLiveDvrActivity::class.java))
             }
         }
     }
