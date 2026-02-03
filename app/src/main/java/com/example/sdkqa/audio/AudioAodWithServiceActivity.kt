@@ -141,6 +141,10 @@ class AudioAodWithServiceActivity : AppCompatActivity() {
                 finish()
             }
 
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
+
             override fun onNext() {}
             override fun onPrevious() {}
             override fun onFullscreen() {
@@ -183,6 +187,10 @@ class AudioAodWithServiceActivity : AppCompatActivity() {
 
             override fun onLiveAudioCurrentSongChanged(data: JSONObject?) {
                 Log.d(TAG, "onLiveAudioCurrentSongChanged: $data")
+            }
+
+            override fun nextEpisodeIncoming(nextEpisodeId: String) {
+                Log.d(TAG, "nextEpisodeIncoming: $nextEpisodeId")
             }
         }
     }

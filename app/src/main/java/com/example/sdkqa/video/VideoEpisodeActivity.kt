@@ -19,6 +19,8 @@ import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.PlayerView
 import com.example.sdkqa.R
+import com.example.sdkqa.audio.AudioMixedActivity
+import com.example.sdkqa.audio.AudioMixedActivity.Companion
 import com.google.ads.interactivemedia.v3.api.AdError
 import com.google.ads.interactivemedia.v3.api.AdEvent
 import com.google.common.util.concurrent.ListenableFuture
@@ -63,6 +65,7 @@ class VideoEpisodeActivity : AppCompatActivity() {
             type = MediastreamPlayerConfig.VideoTypes.EPISODE
             showControls = true
             loadNextAutomatically = true
+            isDebug = true
             //Uncomment to use development environment
             //environment = MediastreamPlayerConfig.Environment.DEV
         }
@@ -142,6 +145,10 @@ class VideoEpisodeActivity : AppCompatActivity() {
                 finish()
             }
 
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
+
             override fun onNext() {
                 Log.d(TAG, "onNext")
             }
@@ -159,7 +166,7 @@ class VideoEpisodeActivity : AppCompatActivity() {
             }
 
             override fun onNewSourceAdded(config: MediastreamPlayerConfig) {
-                Log.d(TAG, "onNewSourceAdded")
+                Log.d(TAG, "onNewSourceAdded ${config.id}")
             }
 
             override fun onLocalSourceAdded() {}
@@ -192,6 +199,10 @@ class VideoEpisodeActivity : AppCompatActivity() {
             }
 
             override fun onLiveAudioCurrentSongChanged(data: JSONObject?) {}
+
+            override fun nextEpisodeIncoming(nextEpisodeId: String) {
+                Log.d(TAG, "nextEpisodeIncoming: $nextEpisodeId")
+            }
         }
     }
 

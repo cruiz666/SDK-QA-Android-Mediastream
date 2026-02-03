@@ -23,6 +23,7 @@ import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.PlayerView
 import com.example.sdkqa.R
+import com.example.sdkqa.audio.AudioMixedActivity.Companion
 import com.google.ads.interactivemedia.v3.api.AdError
 import com.google.ads.interactivemedia.v3.api.AdEvent
 import com.google.common.util.concurrent.ListenableFuture
@@ -212,6 +213,10 @@ class AudioMixedWithServiceActivity : AppCompatActivity() {
                 finish()
             }
 
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
+
             override fun onNext() {}
             override fun onPrevious() {}
             override fun onFullscreen() {
@@ -256,6 +261,10 @@ class AudioMixedWithServiceActivity : AppCompatActivity() {
 
             override fun onLiveAudioCurrentSongChanged(data: JSONObject?) {
                 Log.d(TAG, "onLiveAudioCurrentSongChanged: $data")
+            }
+
+            override fun nextEpisodeIncoming(nextEpisodeId: String) {
+                Log.d(TAG, "nextEpisodeIncoming: $nextEpisodeId")
             }
         }
     }

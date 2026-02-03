@@ -39,6 +39,13 @@
             android:theme="@style/Theme.SDKQA" />
 
         <activity
+            android:name=".video.VideoNextEpisodeActivity"
+            android:exported="false"
+            android:label="Next Episode"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/Theme.SDKQA" />
+
+        <activity
             android:name=".video.VideoLocalActivity"
             android:exported="false"
             android:label="Video Local"

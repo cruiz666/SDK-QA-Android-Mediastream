@@ -14,6 +14,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.ui.PlayerView
 import com.example.sdkqa.R
+import com.example.sdkqa.audio.AudioLocalWithServiceActivity.Companion
 import com.google.ads.interactivemedia.v3.api.AdError
 import com.google.ads.interactivemedia.v3.api.AdEvent
 import org.json.JSONObject
@@ -165,6 +166,10 @@ class AudioMixedActivity : AppCompatActivity() {
                 finish()
             }
 
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
+
             override fun onNext() {}
             override fun onPrevious() {}
             override fun onFullscreen() {
@@ -209,6 +214,10 @@ class AudioMixedActivity : AppCompatActivity() {
 
             override fun onLiveAudioCurrentSongChanged(data: JSONObject?) {
                 Log.d(TAG, "onLiveAudioCurrentSongChanged: $data")
+            }
+
+            override fun nextEpisodeIncoming(nextEpisodeId: String) {
+                Log.d(TAG, "nextEpisodeIncoming: $nextEpisodeId")
             }
         }
     }
