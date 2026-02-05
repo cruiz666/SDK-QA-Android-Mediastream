@@ -18,6 +18,7 @@ import com.example.sdkqa.audio.AudioMixedActivity
 import com.example.sdkqa.audio.AudioMixedWithServiceActivity
 import com.example.sdkqa.video.VideoEpisodeActivity
 import com.example.sdkqa.video.VideoLiveActivity
+import com.example.sdkqa.video.VideoNextEpisodeActivity
 import com.example.sdkqa.video.VideoLiveDvrActivity
 import com.example.sdkqa.video.VideoLocalActivity
 import com.example.sdkqa.video.VideoLocalWithServiceActivity
@@ -102,6 +103,10 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_VOD_SIMPLE -> {
                 Log.d(TAG, "Launching Video VOD Simple test...")
                 startActivity(Intent(this, VideoVodSimpleActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_NEXT_EPISODE -> {
+                Log.d(TAG, "Launching Video Next Episode test...")
+                startActivity(Intent(this, VideoNextEpisodeActivity::class.java))
             }
             TestCase.TestCaseType.VIDEO_LOCAL -> {
                 Log.d(TAG, "Launching Video Local test...")

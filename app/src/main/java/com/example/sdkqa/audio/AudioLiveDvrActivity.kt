@@ -23,6 +23,7 @@ import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.PlayerView
 import com.example.sdkqa.R
+import com.example.sdkqa.audio.AudioAodWithServiceActivity.Companion
 import com.google.ads.interactivemedia.v3.api.AdError
 import com.google.ads.interactivemedia.v3.api.AdEvent
 import com.google.common.util.concurrent.ListenableFuture
@@ -54,7 +55,7 @@ class AudioLiveDvrActivity : AppCompatActivity() {
     private val modes = arrayOf("Live", "DVR", "DVR Start", "DVR VOD")
 
     // Base configuration
-    private val baseId = "5c915724519bce27671c4d15"
+    private val baseId = "632c9b23d1dcd7027f32f7fe"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -237,6 +238,10 @@ class AudioLiveDvrActivity : AppCompatActivity() {
                 finish()
             }
 
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
+
             override fun onNext() {}
             override fun onPrevious() {}
             override fun onFullscreen() {
@@ -279,6 +284,10 @@ class AudioLiveDvrActivity : AppCompatActivity() {
 
             override fun onLiveAudioCurrentSongChanged(data: JSONObject?) {
                 Log.d(TAG, "onLiveAudioCurrentSongChanged: $data")
+            }
+
+            override fun nextEpisodeIncoming(nextEpisodeId: String) {
+                Log.d(TAG, "nextEpisodeIncoming: $nextEpisodeId")
             }
         }
     }

@@ -26,6 +26,7 @@ data class TestCase(
         AUDIO_MIXED,
         AUDIO_MIXED_WITH_SERVICE,
         VIDEO_VOD_SIMPLE,
+        VIDEO_NEXT_EPISODE,
         VIDEO_LOCAL,
         VIDEO_LOCAL_WITH_SERVICE,
         VIDEO_EPISODE,
@@ -54,6 +55,7 @@ data class TestCase(
             TestCase(TestCaseType.AUDIO_MIXED_WITH_SERVICE, "Mixed Audio with Service", Category.AUDIO),
             // Video Test Cases
             TestCase(TestCaseType.VIDEO_VOD_SIMPLE, "VOD Simple", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_NEXT_EPISODE, "Next Episode", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LOCAL, "Local Video", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_LOCAL_WITH_SERVICE, "Local Video with Service", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_EPISODE, "Episode", Category.VIDEO),

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.ui.PlayerView
+import com.example.sdkqa.audio.AudioAodWithServiceActivity.Companion
 import com.google.ads.interactivemedia.v3.api.AdError
 import com.google.ads.interactivemedia.v3.api.AdEvent
 import org.json.JSONObject
@@ -109,6 +110,10 @@ class AudioLocalActivity : AppCompatActivity() {
                 Log.d(TAG, "onPlayerClosed")
             }
 
+            override fun onPlayerReload() {
+                Log.d(TAG, "onPlayerReload")
+            }
+
             override fun onNext() {}
             override fun onPrevious() {}
             override fun onFullscreen() {
@@ -152,6 +157,10 @@ class AudioLocalActivity : AppCompatActivity() {
             }
 
             override fun onLiveAudioCurrentSongChanged(data: JSONObject?) {}
+
+            override fun nextEpisodeIncoming(nextEpisodeId: String) {
+                Log.d(TAG, "nextEpisodeIncoming: $nextEpisodeId")
+            }
         }
     }
 
