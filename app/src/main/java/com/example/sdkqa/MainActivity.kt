@@ -25,6 +25,7 @@ import com.example.sdkqa.video.VideoLocalWithServiceActivity
 import com.example.sdkqa.video.VideoMixedActivity
 import com.example.sdkqa.video.VideoMixedWithServiceActivity
 import com.example.sdkqa.video.VideoVodSimpleActivity
+import com.example.sdkqa.video.ReelActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -135,6 +136,10 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_MIXED_WITH_SERVICE -> {
                 Log.d(TAG, "Launching Video Mixed with Service test...")
                 startActivity(Intent(this, VideoMixedWithServiceActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_REELS -> {
+                Log.d(TAG, "Launching Reels test...")
+                startActivity(Intent(this, ReelActivity::class.java))
             }
         }
     }
