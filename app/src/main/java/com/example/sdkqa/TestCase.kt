@@ -34,7 +34,9 @@ data class TestCase(
         VIDEO_LIVE_DVR,
         VIDEO_MIXED,
         VIDEO_MIXED_WITH_SERVICE,
-        VIDEO_REELS
+        VIDEO_REELS,
+        VIDEO_SMALL_CONTAINER,
+        VIDEO_UI_LOCALIZATION
     }
 
     companion object {
@@ -64,7 +66,9 @@ data class TestCase(
             TestCase(TestCaseType.VIDEO_LIVE_DVR, "Live Video DVR", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_MIXED, "Mixed Video", Category.VIDEO),
             TestCase(TestCaseType.VIDEO_MIXED_WITH_SERVICE, "Mixed Video with Service", Category.VIDEO),
-            TestCase(TestCaseType.VIDEO_REELS, "Reels", Category.VIDEO)
+            TestCase(TestCaseType.VIDEO_REELS, "Reels", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_SMALL_CONTAINER, "Small Container", Category.VIDEO),
+            TestCase(TestCaseType.VIDEO_UI_LOCALIZATION, "UI Localization", Category.VIDEO)
         )
     }
 

@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.sdkqa"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -43,7 +43,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
-    implementation("io.github.mediastream:mediastreamplatformsdkandroid:10.0.0-alpha.01")
+    implementation("io.github.mediastream:mediastreamplatformsdkandroid:10.0.0-alpha.11")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
     // EventBus for service communication

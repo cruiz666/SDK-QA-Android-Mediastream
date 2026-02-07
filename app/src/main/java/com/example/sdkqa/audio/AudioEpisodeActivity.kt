@@ -8,13 +8,19 @@ import am.mediastre.mediastreamplatformsdkandroid.MessageEvent
 import android.Manifest
 import android.content.ComponentName
 import android.content.Intent
+import android.content.res.Configuration
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.PlayerView
@@ -45,7 +51,10 @@ class AudioEpisodeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audio_with_service)
-
+        if (Build.VERSION.SDK_INT >= 35) {
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+            (findViewById<View>(android.R.id.content) as? ViewGroup)?.getChildAt(0)?.let { applyWindowInsetsToRoot(it) }
+        }
         container = findViewById(R.id.main_media_frame)
         playerView = findViewById(R.id.player_view)
 
@@ -66,6 +75,7 @@ class AudioEpisodeActivity : AppCompatActivity() {
             showControls = true
             videoFormat = MediastreamPlayerConfig.AudioVideoFormat.MP3
             loadNextAutomatically = true
+            appHandlesWindowInsets = true
             //Uncomment to use development environment
             //environment = MediastreamPlayerConfig.Environment.DEV
         }
@@ -227,6 +237,26 @@ class AudioEpisodeActivity : AppCompatActivity() {
         if (::controllerFuture.isInitialized) {
             MediaController.releaseFuture(controllerFuture)
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        reapplyWindowInsetsToRoot()
+    }
+
+    private fun reapplyWindowInsetsToRoot() {
+        if (Build.VERSION.SDK_INT >= 35) {
+            (findViewById<View>(android.R.id.content) as? ViewGroup)?.getChildAt(0)?.let { applyWindowInsetsToRoot(it) }
+        }
+    }
+
+    private fun applyWindowInsetsToRoot(root: View) {
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
+        ViewCompat.requestApplyInsets(root)
     }
 
     override fun onRequestPermissionsResult(

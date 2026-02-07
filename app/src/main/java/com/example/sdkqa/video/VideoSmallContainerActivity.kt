@@ -1,6 +1,5 @@
 package com.example.sdkqa.video
 
-import am.mediastre.mediastreamplatformsdkandroid.MediastreamMiniPlayerConfig
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayer
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerCallback
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerConfig
@@ -10,147 +9,56 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.FrameLayout
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.media3.ui.PlayerView
 import com.example.sdkqa.R
-import com.example.sdkqa.audio.AudioMixedActivity
-import com.example.sdkqa.audio.AudioMixedActivity.Companion
 import com.google.ads.interactivemedia.v3.api.AdError
 import com.google.ads.interactivemedia.v3.api.AdEvent
 import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
-class VideoLiveDvrActivity : AppCompatActivity() {
+class VideoSmallContainerActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "SDK-QA"
     }
 
     private lateinit var container: FrameLayout
-    private lateinit var spinnerMode: Spinner
     private var player: MediastreamPlayer? = null
-
-    private var currentMode = "Live"
-    private val modes = arrayOf("Live", "DVR", "DVR Start", "DVR VOD")
-
-    // Base configuration
-    private val baseId = "6824d425c3ae719205f54245"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video_live_dvr)
+        setContentView(R.layout.activity_video_small_container)
         if (Build.VERSION.SDK_INT >= 35) {
             WindowCompat.setDecorFitsSystemWindows(window, false)
             (findViewById<View>(android.R.id.content) as? ViewGroup)?.getChildAt(0)?.let { applyWindowInsetsToRoot(it) }
         }
-        initializeViews()
-        setupSpinner()
-        initializePlayer()
-    }
-
-    private fun initializeViews() {
         container = findViewById(R.id.main_media_frame)
-        spinnerMode = findViewById(R.id.spinnerMode)
+        setupPlayer()
     }
 
-    private fun setupSpinner() {
-        val adapter = ArrayAdapter(this, R.layout.spinner_item, modes)
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-        spinnerMode.adapter = adapter
-
-        spinnerMode.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedMode = modes[position]
-                if (selectedMode != currentMode) {
-                    switchToMode(selectedMode)
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-    }
-
-    private fun initializePlayer() {
-        val config = createConfigForMode("Live")
-        player = MediastreamPlayer(this, config, container, container, supportFragmentManager)
-        player?.addPlayerCallback(createPlayerCallback())
-    }
-
-    private fun switchToMode(mode: String) {
-        Log.d(TAG, "Switching to mode: $mode")
-        currentMode = mode
-        val newConfig = createConfigForMode(mode)
-        player?.reloadPlayer(newConfig)
-    }
-
-    private fun createConfigForMode(mode: String): MediastreamPlayerConfig {
+    private fun setupPlayer() {
         val config = MediastreamPlayerConfig().apply {
-            id = baseId
-            type = MediastreamPlayerConfig.VideoTypes.LIVE
+            id = "685be889d76b0da57e68620e"
+            type = MediastreamPlayerConfig.VideoTypes.VOD
+            showControls = true
             appHandlesWindowInsets = true
-            //Uncomment to use development environment
-            //environment = MediastreamPlayerConfig.Environment.DEV
+            // Uncomment to use development environment
+            // environment = MediastreamPlayerConfig.Environment.DEV
         }
 
-        when (mode) {
-            "Live" -> {
-                // Default live configuration
-                Log.d(TAG, "Config: Live mode")
-            }
-            "DVR" -> {
-                config.dvr = true
-                Log.d(TAG, "Config: DVR mode")
-            }
-            "DVR Start" -> {
-                config.dvr = true
-                config.dvrStart = getDvrStartTime()
-                Log.d(TAG, "Config: DVR Start mode - dvrStart: ${config.dvrStart}")
-            }
-            "DVR VOD" -> {
-                config.dvr = true
-                config.dvrStart = getDvrVodStartTime()
-                config.dvrEnd = getDvrVodEndTime()
-                Log.d(TAG, "Config: DVR VOD mode - dvrStart: ${config.dvrStart}, dvrEnd: ${config.dvrEnd}")
-            }
-        }
+        player = MediastreamPlayer(
+            this,
+            config,
+            container,
+            container,
+            supportFragmentManager
+        )
 
-        return config
-    }
-
-    private fun getDvrStartTime(): String {
-        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        calendar.add(Calendar.HOUR_OF_DAY, -1)
-        calendar.add(Calendar.MINUTE, -30)
-        return formatDateToISO(calendar.time)
-    }
-
-    private fun getDvrVodStartTime(): String {
-        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        calendar.add(Calendar.MINUTE, -30)
-        return formatDateToISO(calendar.time)
-    }
-
-    private fun getDvrVodEndTime(): String {
-        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        calendar.add(Calendar.MINUTE, -10)
-        return formatDateToISO(calendar.time)
-    }
-
-    private fun formatDateToISO(date: Date): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
-        sdf.timeZone = TimeZone.getTimeZone("UTC")
-        return sdf.format(date)
+        player?.addPlayerCallback(createPlayerCallback())
     }
 
     private fun createPlayerCallback(): MediastreamPlayerCallback {
@@ -203,6 +111,11 @@ class VideoLiveDvrActivity : AppCompatActivity() {
 
             override fun offFullscreen() {
                 Log.d(TAG, "offFullscreen")
+                reapplyWindowInsetsToRoot()
+                // El SDK puede reañadir el contenedor al final del parent; en nuestro layout debe ir arriba (índice 0).
+                ensurePlayerContainerOnTop()
+                container.requestLayout()
+                (findViewById<View>(android.R.id.content) as? ViewGroup)?.getChildAt(0)?.requestLayout()
             }
 
             override fun onNewSourceAdded(config: MediastreamPlayerConfig) {}
@@ -216,7 +129,7 @@ class VideoLiveDvrActivity : AppCompatActivity() {
                 Log.e(TAG, "onAdErrorEvent: ${error.message}")
             }
 
-            override fun onConfigChange(config: MediastreamMiniPlayerConfig?) {}
+            override fun onConfigChange(config: am.mediastre.mediastreamplatformsdkandroid.MediastreamMiniPlayerConfig?) {}
             override fun onCastAvailable(state: Boolean?) {}
             override fun onCastSessionStarting() {}
             override fun onCastSessionStarted() {}
@@ -247,6 +160,21 @@ class VideoLiveDvrActivity : AppCompatActivity() {
         if (player?.isOnFullscreen == true) player?.exitFullscreen()
         super.onConfigurationChanged(newConfig)
         reapplyWindowInsetsToRoot()
+    }
+
+    /**
+     * Si el contenedor del player quedó debajo del contenido (p. ej. tras salir de fullscreen),
+     * lo reordena para que sea el primer hijo del root y vuelva a mostrarse arriba.
+     */
+    private fun ensurePlayerContainerOnTop() {
+        val root = (findViewById<View>(android.R.id.content) as? ViewGroup)?.getChildAt(0) as? ViewGroup ?: return
+        if (container.parent != root) return
+        val index = root.indexOfChild(container)
+        if (index > 0) {
+            val params = container.layoutParams
+            root.removeView(container)
+            root.addView(container, 0, params)
+        }
     }
 
     private fun reapplyWindowInsetsToRoot() {

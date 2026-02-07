@@ -26,6 +26,8 @@ import com.example.sdkqa.video.VideoMixedActivity
 import com.example.sdkqa.video.VideoMixedWithServiceActivity
 import com.example.sdkqa.video.VideoVodSimpleActivity
 import com.example.sdkqa.video.ReelActivity
+import com.example.sdkqa.video.VideoSmallContainerActivity
+import com.example.sdkqa.video.VideoUiLocalizationActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -140,6 +142,14 @@ class MainActivity : AppCompatActivity() {
             TestCase.TestCaseType.VIDEO_REELS -> {
                 Log.d(TAG, "Launching Reels test...")
                 startActivity(Intent(this, ReelActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_SMALL_CONTAINER -> {
+                Log.d(TAG, "Launching Video Small Container test...")
+                startActivity(Intent(this, VideoSmallContainerActivity::class.java))
+            }
+            TestCase.TestCaseType.VIDEO_UI_LOCALIZATION -> {
+                Log.d(TAG, "Launching Video UI Localization test...")
+                startActivity(Intent(this, VideoUiLocalizationActivity::class.java))
             }
         }
     }
