@@ -4,9 +4,11 @@ import am.mediastre.mediastreamplatformsdkandroid.MediastreamMiniPlayerConfig
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayer
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerCallback
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerConfig
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,6 +17,9 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.media3.ui.PlayerView
@@ -50,7 +55,10 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
         // Crear layout programáticamente
         val rootLayout = createLayout()
         setContentView(rootLayout)
-
+        if (Build.VERSION.SDK_INT >= 35) {
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+            applyWindowInsetsToRoot(rootLayout)
+        }
         setupButtons()
         initializePlayer()
     }
@@ -231,6 +239,7 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
                     environment = MediastreamPlayerConfig.Environment.DEV
                     type = MediastreamPlayerConfig.VideoTypes.EPISODE
                     isDebug = true
+                    appHandlesWindowInsets = true
                 }
             }
             "NEXT_EPISODE_CUSTOM" -> {
@@ -240,6 +249,7 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
                     type = MediastreamPlayerConfig.VideoTypes.VOD
                     nextEpisodeId = nextEpisodeIds.firstOrNull()
                     isDebug = true
+                    appHandlesWindowInsets = true
                 }
             }
             else -> MediastreamPlayerConfig()
@@ -314,7 +324,9 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
 
             override fun onFullscreen() {}
 
-            override fun offFullscreen() {}
+            override fun offFullscreen() {
+                reapplyWindowInsetsToRoot()
+            }
 
             override fun onNewSourceAdded(config: MediastreamPlayerConfig) {}
 
@@ -360,6 +372,27 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
 
             override fun onPlayerReload() {}
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        if (player?.isOnFullscreen == true) player?.exitFullscreen()
+        super.onConfigurationChanged(newConfig)
+        reapplyWindowInsetsToRoot()
+    }
+
+    private fun reapplyWindowInsetsToRoot() {
+        if (Build.VERSION.SDK_INT >= 35) {
+            (findViewById<View>(android.R.id.content) as? ViewGroup)?.getChildAt(0)?.let { applyWindowInsetsToRoot(it) }
+        }
+    }
+
+    private fun applyWindowInsetsToRoot(root: View) {
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
+        ViewCompat.requestApplyInsets(root)
     }
 
     override fun onDestroy() {
