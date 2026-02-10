@@ -57,11 +57,11 @@ class ReelActivity : AppCompatActivity() {
 
     private fun setupPlayer(mainMediaFrame: FrameLayout) {
         val config = MediastreamPlayerConfig().apply {
-            id = "6772da3c808e6ac7b86edb06"
-            playerId = "677ee96edbb8fa932f3433cc"
+            id = "6927c03148be9c0e38442dc8"
+            playerId = "68c46249cf666688cb586a06"
             type = MediastreamPlayerConfig.VideoTypes.VOD
             isDebug = true
-            environment = MediastreamPlayerConfig.Environment.DEV
+            //environment = MediastreamPlayerConfig.Environment.DEV
             trackEnable = false
             pauseOnScreenClick = FlagStatus.DISABLE
             showDismissButton = true

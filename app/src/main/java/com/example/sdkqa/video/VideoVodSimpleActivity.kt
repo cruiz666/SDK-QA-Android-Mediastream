@@ -4,6 +4,7 @@ import am.mediastre.mediastreamplatformsdkandroid.MediastreamMiniPlayerConfig
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayer
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerCallback
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerConfig
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
@@ -66,6 +67,7 @@ class VideoVodSimpleActivity : AppCompatActivity() {
             id = "685be889d76b0da57e68620e"
             type = MediastreamPlayerConfig.VideoTypes.VOD
             appHandlesWindowInsets = true
+            showDismissButton = true
             //Uncomment to use development environment
             //environment = MediastreamPlayerConfig.Environment.DEV
         }
@@ -127,10 +129,12 @@ class VideoVodSimpleActivity : AppCompatActivity() {
             override fun onPrevious() {}
             override fun onFullscreen() {
                 Log.d(TAG, "onFullscreen")
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             }
 
             override fun offFullscreen() {
                 Log.d(TAG, "offFullscreen")
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 reapplyWindowInsetsToRoot()
             }
 
@@ -173,7 +177,10 @@ class VideoVodSimpleActivity : AppCompatActivity() {
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
-        if (player?.isOnFullscreen == true) player?.exitFullscreen()
+        // Only exit fullscreen when user rotates to portrait (not when we forced landscape in onFullscreen())
+        if (player?.isOnFullscreen == true && newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            player?.exitFullscreen()
+        }
         super.onConfigurationChanged(newConfig)
         reapplyWindowInsetsToRoot()
     }

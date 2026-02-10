@@ -43,7 +43,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
-    implementation("io.github.mediastream:mediastreamplatformsdkandroid:10.0.0-alpha.11")
+    implementation("io.github.mediastream:mediastreamplatformsdkandroid:10.0.0-alpha.13")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
     // EventBus for service communication

@@ -3,6 +3,7 @@ package com.example.sdkqa.video
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayer
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerCallback
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerConfig
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -46,6 +47,7 @@ class VideoSmallContainerActivity : AppCompatActivity() {
             type = MediastreamPlayerConfig.VideoTypes.VOD
             showControls = true
             appHandlesWindowInsets = true
+            showDismissButton = true
             // Uncomment to use development environment
             // environment = MediastreamPlayerConfig.Environment.DEV
         }
@@ -107,10 +109,12 @@ class VideoSmallContainerActivity : AppCompatActivity() {
             override fun onPrevious() {}
             override fun onFullscreen() {
                 Log.d(TAG, "onFullscreen")
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             }
 
             override fun offFullscreen() {
                 Log.d(TAG, "offFullscreen")
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 reapplyWindowInsetsToRoot()
                 // El SDK puede reañadir el contenedor al final del parent; en nuestro layout debe ir arriba (índice 0).
                 ensurePlayerContainerOnTop()
@@ -157,7 +161,10 @@ class VideoSmallContainerActivity : AppCompatActivity() {
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
-        if (player?.isOnFullscreen == true) player?.exitFullscreen()
+        // Only exit fullscreen when user rotates to portrait (not when we forced landscape in onFullscreen())
+        if (player?.isOnFullscreen == true && newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            player?.exitFullscreen()
+        }
         super.onConfigurationChanged(newConfig)
         reapplyWindowInsetsToRoot()
     }
