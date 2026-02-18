@@ -4,8 +4,10 @@ import am.mediastre.mediastreamplatformsdkandroid.MediastreamMiniPlayerConfig
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayer
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerCallback
 import am.mediastre.mediastreamplatformsdkandroid.MediastreamPlayerConfig
+import android.app.PictureInPictureParams
 import android.content.res.Configuration
 import android.graphics.Color
+import android.util.Rational
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -35,6 +37,7 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
 
     private var player: MediastreamPlayer? = null
     private lateinit var mainMediaFrame: FrameLayout
+    private lateinit var footerLayout: LinearLayout
 
     // Botones de navegación
     private lateinit var btnNextEpisode: Button
@@ -45,6 +48,11 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
     private var currentEpisodeIndex = 0
 
     private var currentMode = "NEXT_EPISODE"
+
+    /** True mientras estamos en modo PiP (según onPictureInPictureModeChanged). */
+    private var isInPiP = false
+    /** Si onStop() se llamó mientras isInPiP era true = usuario cerró la ventana PiP (onStop llega antes que onPictureInPictureModeChanged(false)). */
+    private var closedPiPInOnStop = false
 
     // Single callback instance to avoid duplicate registrations
     private val playerCallback by lazy { createPlayerCallback() }
@@ -80,7 +88,7 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
         }
 
         // Crear el footer con botones
-        val footerLayout = LinearLayout(this).apply {
+        footerLayout = LinearLayout(this).apply {
             id = View.generateViewId()
             orientation = LinearLayout.HORIZONTAL
             setBackgroundColor(Color.parseColor("#1a1a1a"))
@@ -374,6 +382,57 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        Log.d(TAG, "PiP onUserLeaveHint | isInPiP=$isInPictureInPictureMode | SDK=${Build.VERSION.SDK_INT}")
+        if (Build.VERSION.SDK_INT >= 26 && !isInPictureInPictureMode) {
+            val params = if (Build.VERSION.SDK_INT >= 31) {
+                PictureInPictureParams.Builder()
+                    .setAspectRatio(Rational(16, 9))
+                    .build()
+            } else {
+                @Suppress("DEPRECATION")
+                PictureInPictureParams.Builder().build()
+            }
+            try {
+                enterPictureInPictureMode(params)
+                Log.d(TAG, "PiP enterPictureInPictureMode requested OK")
+            } catch (e: IllegalStateException) {
+                Log.w(TAG, "PiP not allowed: ${e.message}")
+            }
+        }
+    }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        Log.d(TAG, "PiP onPictureInPictureModeChanged isInPiP=$isInPictureInPictureMode | closedPiPInOnStop=$closedPiPInOnStop")
+        isInPiP = isInPictureInPictureMode
+        footerLayout.visibility = if (isInPictureInPictureMode) View.GONE else View.VISIBLE
+        if (!isInPictureInPictureMode && closedPiPInOnStop) {
+            Log.d(TAG, "PiP cerrada por usuario (onStop ya pasó) -> releasePlayer + finish()")
+            closedPiPInOnStop = false
+            player?.releasePlayer()
+            player = null
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "PiP onResume | clearing closedPiPInOnStop")
+        closedPiPInOnStop = false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (isInPiP) {
+            closedPiPInOnStop = true
+            Log.d(TAG, "PiP onStop | isInPiP=true -> closedPiPInOnStop=true (usuario cerró ventana PiP)")
+        } else {
+            Log.d(TAG, "PiP onStop | isInPiP=false")
+        }
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         if (player?.isOnFullscreen == true) player?.exitFullscreen()
         super.onConfigurationChanged(newConfig)
@@ -397,6 +456,7 @@ class VideoNextEpisodeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "PiP onDestroy | releasing player")
         player?.releasePlayer()
     }
 }

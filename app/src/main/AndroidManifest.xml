@@ -43,6 +43,8 @@
             android:exported="false"
             android:label="Next Episode"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:supportsPictureInPicture="true"
+            android:resizeableActivity="true"
             android:theme="@style/Theme.SDKQA" />
 
         <activity
